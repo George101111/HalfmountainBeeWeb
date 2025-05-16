@@ -1,119 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Sweet stout </title>
+    <title>Repkový Med – Coming Soon</title>
     <style>
+        /* -------------------- Global Styles -------------------- */
         body {
-            font-family: Courier New, Monospace;
+            font-family: "Courier New", monospace;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #fdfaf2; /* jemný krémový základ */
             color: #333;
+            position: relative;
+        }
+
+        /* minimalistický kvetinkový vzor */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("Untitled design (1).jpg");
+            background-repeat: repeat space;
+            background-size: 200px;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
         }
 
         header {
-            background-color: #f4f4f4;
-            color: #000000;
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #000;
             padding: 15px;
             text-align: center;
+            backdrop-filter: blur(4px);
         }
 
-        header h1 {
-            margin: 0;
-        }
+        header h1 { margin: 0; }
 
+        /* -------------------- Main Section -------------------- */
         main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 120px); /* header + footer približne */
             padding: 20px;
         }
 
-        .beer {
-            background-color: #fff;
-            margin-bottom: 20px;
-            padding: 20px;
+        .coming-soon {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px 60px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(2px);
+            font-size: 2rem;
+            text-align: center;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
-        .beer h2 {
-            margin-top: 0;
-        }
-
-        .beer img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
+        /* -------------------- Footer -------------------- */
         footer {
-            background-color:#f4f4f4;
-            color: #000000;
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #000;
             text-align: center;
             padding: 5px;
             position: fixed;
             width: 100%;
             bottom: 0;
+            backdrop-filter: blur(4px);
         }
     </style>
 </head>
 <body>
     <header>
-        <h1> "Sweet stout" </h1>
+        <h1></h1>
     </header>
 
     <main>
-        <section class="beer">
-            <h2> Charakteristika </h2>
-            <img src="./sweetstoutBSS.jpg" alt="IPA Beer">
-            <p>Sweet stout, alebo „mliečny stout,“ je tradičný štýl čierneho piva britského pôvodu, ktorý sa vyznačuje nízkou horkosťou a tónmi kávy a čokolády.
-                Mliečny stout získal svoje pomenovanie práve vďaka obsahu laktózy, ktorá sa do piva pridáva v posledných minútach varu.
-            </p>
-        </section>
-
-        <section class="beer">
-            <h2>Slad</h2>
-  
-            <ul>
-                <li>Cookie (400g)</li>
-                <li>Mníchovský(2000g)</li>
-                <li>Čokoládový (300g)</li>
-                <li>Čierny (100g)</li>
-                <li>Laktóza(neni to slad ale budiš) (250g)</li>
-            </ul>
-            <p>*Postupoval som podľa receptu na tejto stránke, avšak z dôvodu ceny dopravy som sa rozhodol ingrediencie trochu pozmeniť :0 </p>
-            <p>https://thebeerjunkies.com/sweet-stout/</p>
-        </section>
-
-        <section class="beer">
-            <h2>Chmeľ</h2>
-
-            <p> ŽPČ felety (25g)- lacnejšia varianta britského chmeľu fuggles, má podobnú charakteristiku, jemné korenisté tóny prekrývajúce sa s tónmy ovocia </p>
-        </section>
-
-        <section class="beer">
-            <h2>Voda</h2>
-
-            <p> Použil som veľmi osvedčenú vodu "Drobček" </p>
-        </section>
-
-         <section class="beer">
-            <h2>Kvasinky</h2>
-
-            <p> Kvasinky Mangrove Jack 's M36 (10g) - nie veľmi odporúčané na stout ale najlepšia ponuka akú som mal</p>
-        </section>
-                 <section class="beer">
-            <h2>Exekúcia</h2>
- 
-            <p> Recept je na 10 litrov piva, a tak som nalial 8 litrov vody do dvoch 6-litrových hrncov, počkal, kým voda zovrie, a pridal všetok slad.
-                Teplotu som udržiaval približne medzi 80 °C a 90 °C, avšak odporúčal by som ju neudržiavať vyššie ako 80 °C. Po 30 minútach varu a menších stratách spôsobených pretečením som sa rozhodol vytiahnuť tretí 6-litrový hrniec spolu s číslom na upratovaciu čatu.
-                Po 60 minútach od začiatku varu som pridal chmeľ a v posledných 15 minútach laktózu so zvyšokom vody. Fermentácia trvala približne 13 dní.
-            </p>
-        </section>
+        <div class="coming-soon">comming soon</div>
     </main>
 
     <footer>
-        <p>&copy; Halfmountain </p>
+        <p>&copy; Halfmountain</p>
     </footer>
 </body>
 </html>
