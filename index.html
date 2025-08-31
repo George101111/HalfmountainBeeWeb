@@ -1,464 +1,543 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halfmountain Farm</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halfmountain Farm</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/favicon.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 
-    <!-- Google Fonts: Rock Salt (fallback with diacritics) -->
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Rock Salt (fallback with diacritics) -->
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Chalkboard SE', 'Rock Salt', cursive;
-            margin: 0;
-            padding: 0;
-            background: #fdfaf2;
-            color: #333;
-        }
+  <style>
+    body {
+      font-family: 'Chalkboard SE', 'Rock Salt', cursive;
+      margin: 0;
+      padding: 0;
+      background: #fdfaf2;
+      color: #333;
+    }
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image: url("assets/Untitled design (1).jpg");
-            background-repeat: repeat space;
-            background-size: 150px;
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: -1;
-        }
-        .contact-inline {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .contact-inline p { margin: 0; }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("assets/Untitled design (1).jpg");
+      background-repeat: repeat space;
+      background-size: 150px;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .contact-inline {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .contact-inline p { margin: 0; }
 
-        /* -------------------- Navbar -------------------- */
-        .navbar{
-            position:sticky;top:0;z-index:1000;
-            display:flex;align-items:center;justify-content:space-between;
-            padding:0px 25px;
-            background:rgba(255,255,255,.9);backdrop-filter:blur(6px);
-            border-bottom:1px solid #e0e0e0;
-        }
-        .logo { display:flex; align-items:center; text-decoration:none; margin-left:0; }
-        .logo-img { width:100px; height:auto; }
+    /* -------------------- Navbar -------------------- */
+    .navbar{
+      position:sticky;top:0;z-index:1000;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0px 25px;
+      background:rgba(255,255,255,.9);backdrop-filter:blur(6px);
+      border-bottom:1px solid #e0e0e0;
+    }
+    .logo { display:flex; align-items:center; text-decoration:none; margin-left:0; }
+    .logo-img { width:100px; height:auto; }
 
-        /* Burger */
-        .nav-toggle{display:none;}
-        .burger{display:none;width:30px;height:22px;flex-direction:column;justify-content:space-between;cursor:pointer;margin-left:auto;}
-        .burger span{display:block;width:100%;height:3px;background:#333;border-radius:2px;transition:transform .3s,opacity .3s;}
-        .nav-toggle:checked+label.burger span:nth-child(1){transform:translateY(9.5px) rotate(45deg);} 
-        .nav-toggle:checked+label.burger span:nth-child(2){opacity:0;} 
-        .nav-toggle:checked+label.burger span:nth-child(3){transform:translateY(-9.5px) rotate(-45deg);} 
+    /* Burger */
+    .nav-toggle{display:none;}
+    .burger{display:none;width:30px;height:22px;flex-direction:column;justify-content:space-between;cursor:pointer;margin-left:auto;}
+    .burger span{display:block;width:100%;height:3px;background:#333;border-radius:2px;transition:transform .3s,opacity .3s;}
+    .nav-toggle:checked+label.burger span:nth-child(1){transform:translateY(9.5px) rotate(45deg);} 
+    .nav-toggle:checked+label.burger span:nth-child(2){opacity:0;} 
+    .nav-toggle:checked+label.burger span:nth-child(3){transform:translateY(-9.5px) rotate(-45deg);} 
 
-        /* Nav links */
-        .nav-links{display:flex;list-style:none;margin:0;padding:0;gap:25px;}
-        .nav-links li{position:relative;}
-        .nav-links>li>a{font-size:1.2rem; text-decoration:none;color:#333;transition:color .2s;padding:6px 0;display:inline-block;}
-        .nav-links a:hover{color:#ff9900;}
-        .cart-icon{font-size:1.1rem;}
+    /* Nav links */
+    .nav-links{display:flex;list-style:none;margin:0;padding:0;gap:25px;}
+    .nav-links li{position:relative;}
+    .nav-links>li>a{font-size:1.2rem; text-decoration:none;color:#333;transition:color .2s;padding:6px 0;display:inline-block;}
+    .nav-links a:hover{color:#ff9900;}
+    .cart-icon{font-size:1.1rem;}
 
-        /* Dropdown */
-        .dropdown-menu{
-            position:absolute;top:100%;left:0;background:rgba(255,255,255,.95);
-            list-style:none;margin:0;padding:10px 0;min-width:180px;
-            border:1px solid #e0e0e0;border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.08);
-            opacity:0;pointer-events:none;transform:translateY(10px);
-            transition:opacity .2s,transform .2s;
-        }
-        .nav-links li:hover>.dropdown-menu{opacity:1;pointer-events:auto;transform:translateY(0);} 
-        .dropdown-menu li{width:100%;}
-        .dropdown-menu a{display:block;padding:8px 20px;color:#333;text-decoration:none;font-size:.95rem;white-space:nowrap;}
-        .dropdown-menu a:hover{background:#f4f4f4;color:#ff9900;}
+    /* Dropdown */
+    .dropdown-menu{
+      position:absolute;top:100%;left:0;background:rgba(255,255,255,.95);
+      list-style:none;margin:0;padding:10px 0;min-width:180px;
+      border:1px solid #e0e0e0;border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.08);
+      opacity:0;pointer-events:none;transform:translateY(10px);
+      transition:opacity .2s,transform .2s;
+    }
+    .nav-links li:hover>.dropdown-menu{opacity:1;pointer-events:auto;transform:translateY(0);} 
+    .dropdown-menu li{width:100%;}
+    .dropdown-menu a{display:block;padding:8px 20px;color:#333;text-decoration:none;font-size:.95rem;white-space:nowrap;}
+    .dropdown-menu a:hover{background:#f4f4f4;color:#ff9900;}
 
-        /* -------------------- Hero -------------------- */
-        .hero{padding:100px 20px 60px;text-align:center;background:url("backPhoto.jpg") center/cover no-repeat;color:#333131;}
-        .hero h1{margin:0 0 10px;font-size:3rem;} 
-        .hero p{margin:0;font-size:1.5rem;}
+    /* -------------------- Hero -------------------- */
+    .hero{padding:100px 20px 60px;text-align:center;background:url("backPhoto.jpg") center/cover no-repeat;color:#333131;}
+    .hero h1{margin:0 0 10px;font-size:3rem;} 
+    .hero p{margin:0;font-size:1.5rem;}
 
-        /* -------------------- Sections -------------------- */
-        section{padding:60px 20px;}
-        section:nth-of-type(even){background:#fff;}
-        section h2{text-align:center;margin-top:0;}
+    /* -------------------- Sections -------------------- */
+    section{padding:60px 20px;}
+    section:nth-of-type(even){background:#fff;}
+    section h2{text-align:center;margin-top:0;}
 
-        .products-grid{
-            display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-            gap:30px;max-width:1100px;margin:0 auto;
-        }
-        .product-card{background:#ffffffcc;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:20px;text-align:center;}
-        .product-card img{max-width:100%;height:300px;object-fit:cover;border-radius:6px;}
+    .products-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:30px;max-width:1100px;margin:0 auto;
+    }
+    .product-card{background:#ffffffcc;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:20px;text-align:center;}
+    .product-card img{max-width:100%;height:300px;object-fit:cover;border-radius:6px;}
 
-        .beekeeper-grid{
-            display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-            gap:30px;max-width:900px;margin:0 auto;
-        }
-        .beekeeper-card{background:#ffffffcc;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:25px 20px;text-align:center;}
+    .beekeeper-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:30px;max-width:900px;margin:0 auto;
+    }
+    .beekeeper-card{background:#ffffffcc;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:25px 20px;text-align:center;}
 
-        .contact-wrap{max-width:600px;margin:0 auto;}
-        .contact-wrap label{display:block;margin-top:15px;} 
-        .contact-wrap input,.contact-wrap textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;font-family:inherit;} 
-        .contact-wrap button{margin-top:20px;padding:10px 25px;border:none;border-radius:4px;background:#ff9900;color:#fff;cursor:pointer;} 
-        .contact-wrap button:hover{background:#e57f00;}
+    .contact-wrap{max-width:600px;margin:0 auto;}
+    .contact-wrap label{display:block;margin-top:15px;} 
+    .contact-wrap input,.contact-wrap textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;font-family:inherit;} 
+    .contact-wrap button{margin-top:20px;padding:10px 25px;border:none;border-radius:4px;background:#ff9900;color:#fff;cursor:pointer;} 
+    .contact-wrap button:hover{background:#e57f00;}
 
-        /* -------------------- Triple swipe gallery (NEW) -------------------- */
-        .triple-gallery{
-            max-width:1100px;margin:30px auto 0;display:grid;
-            grid-template-columns:repeat(3,1fr);gap:18px;
-        }
-        .swipe-slot{
-            position:relative;height:300px;border-radius:10px;overflow:hidden;
-            background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1);
-        }
-        .swipe-track{
-            position:absolute;inset:0;display:flex;width:200%;
-            transform:translateX(0);
-        }
-        .swipe-track img{
-            width:100%;height:100%;object-fit:cover;user-select:none;pointer-events:none;
-        }
-        .swipe-slot .hint{
-            position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,.45);
-            color:#fff;padding:6px 10px;border-radius:999px;font-size:.8rem;
-        }
+    /* -------------------- Triple swipe gallery (NEW) -------------------- */
+    .triple-gallery{
+      max-width:1100px;margin:30px auto 0;display:grid;
+      grid-template-columns:repeat(3,1fr);gap:18px;
+    }
+    .swipe-slot{
+      position:relative;height:300px;border-radius:10px;overflow:hidden;
+      background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1);
+    }
+    .swipe-track{
+      position:absolute;inset:0;display:flex;width:200%;
+      transform:translateX(0);
+    }
+    .swipe-track img,
+    .swipe-track video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      user-select:none;
+      pointer-events:none;
+      display:block;
+    }
+    .swipe-slot .hint{
+      position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,.45);
+      color:#fff;padding:6px 10px;border-radius:999px;font-size:.8rem;
+    }
 
-        /* -------------------- Footer -------------------- */
-        footer {
-            background: #fff;
-            color: #000;
-            padding: 24px 60px;
-            border-top: 1px solid #e0e0e0;
-            text-align: center;
-        }
-        .footer-inner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        .footer-col { min-width: auto; }
-        .contact-inline { display:flex; gap:20px; justify-content:center; align-items:center; flex-wrap:wrap; }
-        .contact-inline p { margin:0; }
+    /* -------------------- Footer -------------------- */
+    footer {
+      background: #fff;
+      color: #000;
+      padding: 24px 60px;
+      border-top: 1px solid #e0e0e0;
+      text-align: center;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .footer-col { min-width: auto; }
+    .contact-inline { display:flex; gap:20px; justify-content:center; align-items:center; flex-wrap:wrap; }
+    .contact-inline p { margin:0; }
 
-        .footer-col{min-width:220px;}
-        .footer-inner h4{margin:0 0 8px;font-size:1rem;}
-        .footer-inner ul{list-style:none;margin:0;padding:0;}
-        .footer-inner li{margin:6px 0;}
-        .footer-inner a{color:#000;text-decoration:none;}
-        .footer-inner a:hover{color:#ff9900;}
-        .copyright{text-align:center;margin-top:16px;font-size:.9rem;opacity:.8;}
+    .footer-col{min-width:220px;}
+    .footer-inner h4{margin:0 0 8px;font-size:1rem;}
+    .footer-inner ul{list-style:none;margin:0;padding:0;}
+    .footer-inner li{margin:6px 0;}
+    .footer-inner a{color:#000;text-decoration:none;}
+    .footer-inner a:hover{color:#ff9900;}
+    .copyright{text-align:center;margin-top:16px;font-size:.9rem;opacity:.8;}
 
-        /* -------------------- Mobile -------------------- */
-        @media(max-width:640px){
-            .burger{display:flex;}
-            .nav-links{
-                flex-direction:column;position:fixed;right:0;top:60px;width:230px;
-                height:320px;background:#fff;gap:0;padding:20px 0;
-                transform:translateX(100%);transition:transform .3s;overflow-y:auto;
-            }
-            .nav-toggle:checked~.nav-links{transform:translateX(0);} 
-            .dropdown-menu{position:static;opacity:1;pointer-events:auto;transform:none;box-shadow:none;border:none;padding:0;display:block;}
-            .dropdown-menu a{padding:8px 30px;font-size:.9rem;} 
-            .nav-links>li>a{display:block;padding:10px 20px;}
+    /* -------------------- Mobile -------------------- */
+    @media(max-width:640px){
+      .burger{display:flex;}
+      .nav-links{
+        flex-direction:column;position:fixed;right:0;top:60px;width:230px;
+        height:320px;background:#fff;gap:0;padding:20px 0;
+        transform:translateX(100%);transition:transform .3s;overflow-y:auto;
+      }
+      .nav-toggle:checked~.nav-links{transform:translateX(0);} 
+      .dropdown-menu{position:static;opacity:1;pointer-events:auto;transform:none;box-shadow:none;border:none;padding:0;display:block;}
+      .dropdown-menu a{padding:8px 30px;font-size:.9rem;} 
+      .nav-links>li>a{display:block;padding:10px 20px;}
 
-            footer{padding:20px;}
-            .footer-inner{flex-direction:column;align-items:flex-start;gap:20px;}
+      footer{padding:20px;}
+      .footer-inner{flex-direction:column;align-items:flex-start;gap:20px;}
 
-            /* --- PRODUCTS: 2 stĺpce vedľa seba --- */
-            .products-grid{
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-            .product-card img{
-                height: 170px;
-                object-fit: cover;
-            }
-            .hero h1{
-            font-size: 2rem;      /* bolo 3rem */
-            line-height: 1.15;
-            }
-            .hero p{
-            font-size: 1.1rem;    /* voliteľné: jemne menšie */
-            }
+      /* --- PRODUCTS: 2 stĺpce vedľa seba --- */
+      .products-grid{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .product-card img{
+        height: 170px;
+        object-fit: cover;
+      }
+      .hero h1{
+        font-size: 2rem;
+        line-height: 1.15;
+      }
+      .hero p{
+        font-size: 1.1rem;
+      }
 
-            /* --- GALLERY: na mobile zobraz iba jeden slider --- */
-            .triple-gallery{ grid-template-columns: 1fr; gap: 14px; }
-            .swipe-slot{ display: none; }
-            .swipe-slot:first-child{ display: block; height: 260px; }
-        }
+      /* --- GALLERY: na mobile zobraz iba jeden slider --- */
+      .triple-gallery{ grid-template-columns: 1fr; gap: 14px; }
+      .swipe-slot{ display: none; }
+      .swipe-slot:first-child{ display: block; height: 260px; }
+    }
 
-        .product-card,.beekeeper-card{ text-decoration:none;color:#000; }
-        .product-card:hover,.beekeeper-card:hover{ color:#ff9900; }
-    </style>
+    .product-card,.beekeeper-card{ text-decoration:none;color:#000; }
+    .product-card:hover,.beekeeper-card:hover{ color:#ff9900; }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="#" class="logo">
-            <img src="assets/halfmountain5.png" alt="Halfmountain logo" class="logo-img">
-        </a>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <img src="assets/halfmountain5.png" alt="Halfmountain logo" class="logo-img">
+    </a>
 
-        <input type="checkbox" id="nav-toggle" class="nav-toggle">
-        <label for="nav-toggle" class="burger" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </label>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </label>
 
-        <ul class="nav-links">
-            <li><a href="#about">O&nbsp;nás</a></li>
-            <li><a href="#products">Produkty ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#repkovy-meds">Med</a></li>
-                    <li><a href="#agatovy-med">Pálivé omáčky</a></li>
-                    <li><a href="#pupavovy-med">Džemy</a></li>
-                    <li><a href="#vosk">Včelie výrobky</a></li>
-                </ul>
-            </li>
-            <li><a href="#galery">Galéria</a></li>
-            <li><a href="#contact">Kontakt</a></li>
+    <ul class="nav-links">
+      <li><a href="#about">O&nbsp;nás</a></li>
+      <li><a href="#products">Produkty ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="#repkovy-meds">Med</a></li>
+          <li><a href="#agatovy-med">Pálivé omáčky</a></li>
+          <li><a href="#pupavovy-med">Džemy</a></li>
+          <li><a href="#vosk">Včelie výrobky</a></li>
         </ul>
-    </nav>
+      </li>
+      <li><a href="#galery">Galéria</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+  </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <h1>Prírodný med od Halfmountain</h1>
-        <p>Kvalita z našich úľov priamo k vám domov</p>
-    </section>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Prírodný med od Halfmountain</h1>
+    <p>Kvalita z našich úľov priamo k vám domov</p>
+  </section>
 
-    <!-- About -->
-    <section id="about">
-        <h2>O nás</h2>
-        <p style="max-width:800px;margin:0 auto;text-align:center;">Od roku 2020 sa venujeme rodinnému včelárstvu, v ktorom spájame tradíciu s poctivou prácou. Našou vášňou je produkcia kvalitného, prírodného medu a ďalších včelích produktov, ktoré prinášame priamo z našich úľov k vám domov. Každý náš výrobok vzniká s dôrazom na čistotu, chuť a bez kompromisov v kvalite..</p>
-    </section>
+  <!-- About -->
+  <section id="about">
+    <h2>O nás</h2>
+    <p style="max-width:800px;margin:0 auto;text-align:center;">
+      Od roku 2020 sa venujeme rodinnému včelárstvu, v ktorom spájame tradíciu s poctivou prácou.
+      Našou vášňou je produkcia kvalitného, prírodného medu a ďalších včelích produktov, ktoré prinášame
+      priamo z našich úľov k vám domov. Každý náš výrobok vzniká s dôrazom na čistotu, chuť a bez kompromisov v kvalite..
+    </p>
+  </section>
 
-    <!-- Products -->
-    <section id="products">
-        <h2>Produkty</h2>
+  <!-- Products -->
+  <section id="products">
+    <h2>Produkty</h2>
 
-        <div class="products-grid">
-            <!-- Med kvetový -->
-            <a href="products/flover_honey" class="product-card" id="med-kvetovy">
-                <img src="assets/Med-5.jpg" alt="Med kvetový">
-                <h3>Med kvetový</h3>
-            </a>
+    <div class="products-grid">
+      <!-- Med kvetový -->
+      <a href="products/flover_honey" class="product-card" id="med-kvetovy">
+        <img src="assets/Med-5.jpg" alt="Med kvetový">
+        <h3>Med kvetový</h3>
+      </a>
 
-            <!-- Med repkový -->
-            <a href="products/rapeseed_honey" class="product-card" id="med-repkovy">
-                <img src="assets/Med-5.jpg" alt="Med repkový">
-                <h3>Med repkový</h3>
-            </a>
+      <!-- Med repkový -->
+      <a href="products/rapeseed_honey" class="product-card" id="med-repkovy">
+        <img src="assets/Med-5.jpg" alt="Med repkový">
+        <h3>Med repkový</h3>
+      </a>
+    </div>
+
+    <!-- ===== Triple swipe gallery ===== -->
+    <div class="triple-gallery" id="triple-gallery">
+      <div class="swipe-slot" data-offset="0" aria-label="Prehliadač médií 1">
+        <div class="swipe-track">
+          <img alt="">
+          <img alt="">
         </div>
-
-        <!-- ===== Triple swipe gallery ===== -->
-        <div class="triple-gallery" id="triple-gallery">
-            <div class="swipe-slot" data-offset="0" aria-label="Prehliadač fotiek 1">
-                <div class="swipe-track">
-                    <img alt="">
-                    <img alt="">
-                </div>
-                <div class="hint">Potiahni ↔︎</div>
-            </div>
-            <div class="swipe-slot" data-offset="1" aria-label="Prehliadač fotiek 2">
-                <div class="swipe-track">
-                    <img alt="">
-                    <img alt="">
-                </div>
-                <div class="hint">Potiahni ↔︎</div>
-            </div>
-            <div class="swipe-slot" data-offset="2" aria-label="Prehliadač fotiek 3">
-                <div class="swipe-track">
-                    <img alt="">
-                    <img alt="">
-                </div>
-                <div class="hint">Potiahni ↔︎</div>
-            </div>
+        <div class="hint">Potiahni ↔︎</div>
+      </div>
+      <div class="swipe-slot" data-offset="1" aria-label="Prehliadač médií 2">
+        <div class="swipe-track">
+          <img alt="">
+          <img alt="">
         </div>
-        <!-- ===== /Triple swipe gallery ===== -->
-    </section>
+        <div class="hint">Potiahni ↔︎</div>
+      </div>
+      <div class="swipe-slot" data-offset="2" aria-label="Prehliadač médií 3">
+        <div class="swipe-track">
+          <img alt="">
+          <img alt="">
+        </div>
+        <div class="hint">Potiahni ↔︎</div>
+      </div>
+    </div>
+    <!-- ===== /Triple swipe gallery ===== -->
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-col contact">
-                <h4>Kontakt</h4>
-                <div class="contact-inline">
-                    <p>email:  <a href="mailto:info@halfmountain.sk">info@halfmountain.sk</a></p>
-                    <p>tel.č.:  <a href="tel:+421900123456">+421 900 123 456</a></p>
-                    <p><a href="https://instagram.com/halfmountain" target="_blank" rel="noopener">Instagram</a></p>
-                </div>
-            </div>
-        </div>        
-        <p class="copyright">© 2025 Halfmountain. Všetky práva vyhradené.</p>
-    </footer>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col contact">
+        <h4>Kontakt</h4>
+        <div class="contact-inline">
+          <p>email:  <a href="mailto:info@halfmountain.sk">info@halfmountain.sk</a></p>
+          <p>tel.č.:  <a href="tel:+421900123456">+421 900 123 456</a></p>
+          <p><a href="https://instagram.com/halfmountain" target="_blank" rel="noopener">Instagram</a></p>
+        </div>
+      </div>
+    </div>        
+    <p class="copyright">© 2025 Halfmountain. Všetky práva vyhradené.</p>
+  </footer>
 
-    <!-- ===== Swipe logic (NEW) ===== -->
-    <script>
-    // ⬇ Sem vlož svoje fotky (ľubovoľný počet)
+  <!-- ===== Swipe logic (NEW) ===== -->
+  <script>
+    // ⬇ Sem vlož svoje fotky / videá (poradie ľubovoľné)
     const GALLERY_IMAGES = [
-        "assets/Med-5.jpg",
-        "assets/IMG_2301.mov",
-        "assets/Med-5.jpg",
-        "assets/Med-5.jpg",
-        "assets/Med-5.jpg",
-        "assets/Med-5.jpg"
-        // "fotka-7.jpg", ...
+      "assets/complete_hives_01.jpg",
+      "assets/IMG_2301.mov",
+      "assets/complete_hives.jpg",
+      "assets/extractor.jpg",
+      "assets/hive_making_01.jpg",
+      "assets/hive_making_02.jpg",
+      "assets/hives.jpg",
+      "assets/IMG_2303.mov",
     ];
 
     // Nastavenia
-    const AUTOPLAY_MS = 3500;      // interval automatického posunu
-    const SWIPE_MS    = 500;       // dĺžka animácie preklzu
-    const EASING      = "ease";    // CSS easing
+    const AUTOPLAY_MS = 3500;   // interval pre obrázky
+    const SWIPE_MS    = 500;    // dĺžka animácie preklzu
+    const EASING      = "ease"; // CSS easing
 
     // Pomocné
     const mod = (n, m) => ((n % m) + m) % m;
+    const isVideo = src => /\.(mov|mp4|webm)$/i.test(src);
 
-    function setupSlot(slot, startIndex) {
-        const track = slot.querySelector(".swipe-track");
-        const imgs  = track.querySelectorAll("img");
-
-        // Počiatočné indexy v rámci globálneho zoznamu
-        let cur = mod(startIndex, GALLERY_IMAGES.length);
-        let next = mod(cur + 1, GALLERY_IMAGES.length);
-
-        // Inicializácia
-        imgs[0].src = GALLERY_IMAGES[cur];
-        imgs[1].src = GALLERY_IMAGES[next];
-        track.style.transition = "none";
-        track.style.transform = "translateX(0)";
-
-        let playing = true;
-        let timer = null;
-
-        function schedule() {
-            clearInterval(timer);
-            if (playing) {
-                timer = setInterval(() => advance(1), AUTOPLAY_MS);
-            }
-        }
-
-        function advance(step) {
-            // priprav ďalší obrázok do druhej polovice
-            cur = mod(cur + step, GALLERY_IMAGES.length);
-            next = mod(cur + 1, GALLERY_IMAGES.length);
-            imgs[1].src = GALLERY_IMAGES[cur];
-
-            // spusti animáciu doľava
-            track.style.transition = `transform ${SWIPE_MS}ms ${EASING}`;
-            requestAnimationFrame(() => {
-                track.style.transform = "translateX(-50%)";
-            });
-        }
-
-        // Po skončení animácie vymeníme poradie a resetneme translate
-        track.addEventListener("transitionend", () => {
-            // presun druhého obrázka na pozíciu prvého
-            imgs[0].src = imgs[1].src;
-            imgs[1].src = GALLERY_IMAGES[next];
-
-            // reset bez animácie
-            track.style.transition = "none";
-            track.style.transform = "translateX(0)";
-            // force reflow
-            void track.offsetWidth;
-            // späť animácie pripravené na ďalší krok
-            track.style.transition = `transform ${SWIPE_MS}ms ${EASING}`;
-        });
-
-        // Pause/Resume pri hovere a pri (ne)viditeľnosti
-        slot.addEventListener("mouseenter", () => { playing = false; schedule(); });
-        slot.addEventListener("mouseleave", () => { playing = true;  schedule(); });
-
-        const io = new IntersectionObserver(
-            entries => {
-                entries.forEach(e => { playing = e.isIntersecting; schedule(); });
-            }, { threshold: 0.25 }
-        );
-        io.observe(slot);
-
-        // Dotyk / myš – manuálny swipe
-        let startX = 0, deltaX = 0, isDown = false, dragging = false;
-
-        function onStart(x) {
-            isDown = true; dragging = true; deltaX = 0; startX = x;
-            clearInterval(timer);
-            track.style.transition = "none";
-        }
-        function onMove(x) {
-            if (!dragging) return;
-            deltaX = x - startX;
-            track.style.transform = `translateX(${deltaX / 2}px)`; // jemnejšia odozva
-        }
-        function onEnd() {
-            if (!dragging) return;
-            dragging = false;
-
-            // rozhodnutie: ak potiahnutie väčšie, spravíme posun
-            const width = slot.clientWidth;
-            track.style.transition = `transform ${SWIPE_MS}ms ${EASING}`;
-
-            if (deltaX < -width * 0.15) {
-                // swipe doľava -> ďalšia fotka
-                advance(1);
-            } else if (deltaX > width * 0.15) {
-                // swipe doprava -> predchádzajúca fotka
-                // priprav spätný krok
-                const prev = mod(cur - 1, GALLERY_IMAGES.length);
-                imgs[1].src = GALLERY_IMAGES[prev];
-                // animácia doprava
-                requestAnimationFrame(() => {
-                    track.style.transform = "translateX(50%)";
-                });
-                // po animácii nastavíme stav, akoby sme išli o -1
-                track.addEventListener("transitionend", function handler() {
-                    track.removeEventListener("transitionend", handler);
-                    cur = prev;
-                    next = mod(cur + 1, GALLERY_IMAGES.length);
-                    imgs[0].src = imgs[1].src;
-                    imgs[1].src = GALLERY_IMAGES[next];
-                    track.style.transition = "none";
-                    track.style.transform = "translateX(0)";
-                    // re-enable transition
-                    void track.offsetWidth;
-                    track.style.transition = `transform ${SWIPE_MS}ms ${EASING}`;
-                }, { once: true });
-            } else {
-                // vrátiť späť
-                track.style.transform = "translateX(0)";
-            }
-            if (playing) schedule();
-        }
-
-        // Myš
-        slot.addEventListener("mousedown", e => onStart(e.clientX));
-        window.addEventListener("mousemove", e => onMove(e.clientX));
-        window.addEventListener("mouseup", onEnd);
-
-        // Dotyk
-        slot.addEventListener("touchstart", e => onStart(e.touches[0].clientX), { passive: true });
-        slot.addEventListener("touchmove",  e => onMove(e.touches[0].clientX),  { passive: true });
-        slot.addEventListener("touchend", onEnd);
-
-        // štart
-        schedule();
+    // Vytvorí IMG alebo VIDEO element podľa typu súboru
+    function makeMediaEl(src) {
+      if (!isVideo(src)) {
+        const img = document.createElement("img");
+        img.alt = "";
+        img.draggable = false;
+        img.decoding = "async";
+        img.loading = "lazy";
+        img.src = src;
+        return img;
+      }
+      const video = document.createElement("video");
+      video.muted = true;        // bezpečný autoplay na mobile
+      video.playsInline = true;  // iOS inline
+      video.preload = "metadata";
+      video.src = src;
+      // Ak chceš ovládanie, odkomentuj:
+      // video.controls = true;
+      return video;
     }
 
-    // Inicializácia všetkých 3 slotov
-    window.addEventListener("DOMContentLoaded", () => {
-        if (!GALLERY_IMAGES.length) return;
-        const slots = document.querySelectorAll(".swipe-slot");
-        slots.forEach((slot, i) => {
-            const offset = parseInt(slot.dataset.offset || "0", 10);
-            setupSlot(slot, i + offset); // rôzny štart pre 3 sloty
+    function setupSlot(slot, startIndex) {
+      const track = slot.querySelector(".swipe-track");
+
+      // pripravíme dva „panely“ pre plynulý posun
+      track.innerHTML = ""; // vyčisti prípadné <img>
+      let paneA = document.createElement("div");
+      let paneB = document.createElement("div");
+      [paneA, paneB].forEach(p => { p.style.flex = "0 0 50%"; p.style.height = "100%"; });
+      track.append(paneA, paneB);
+      track.style.display = "flex";
+      track.style.width = "200%";
+      track.style.transition = "none";
+      track.style.transform = "translateX(0)";
+
+      // indexy v globálnom zozname
+      let cur = mod(startIndex, GALLERY_IMAGES.length);
+      let next = mod(cur + 1, GALLERY_IMAGES.length);
+
+      // stav
+      let playing = true;      // či je autoplay povolený (hover/visibility)
+      let timer = null;        // interval pre obrázky
+      let currentVideo = null; // ak je aktuálny panel video
+
+      // naplň panely počiatočným obsahom
+      function setPaneContent(pane, src) {
+        pane.innerHTML = "";
+        const el = makeMediaEl(src);
+        pane.appendChild(el);
+        return el;
+      }
+      let elA = setPaneContent(paneA, GALLERY_IMAGES[cur]);
+      let elB = setPaneContent(paneB, GALLERY_IMAGES[next]);
+
+      // plánovanie ďalšieho kroku:
+      function clearTimers() {
+        clearInterval(timer);
+        timer = null;
+        if (currentVideo) {
+          currentVideo.pause();
+          currentVideo.onended = null;
+          currentVideo = null;
+        }
+      }
+
+      function scheduleNextForCurrent() {
+        clearTimers();
+
+        const currentEl = paneA.firstElementChild; // A je vždy „viditeľný“ panel
+        if (currentEl && currentEl.tagName === "VIDEO") {
+          currentVideo = currentEl;
+          if (playing) {
+            const playPromise = currentVideo.play();
+            if (playPromise && typeof playPromise.then === "function") {
+              playPromise.then(() => {
+                currentVideo.onended = () => {
+                  advance(1);
+                };
+              }).catch(() => {
+                // fallback – keby autoplay zlyhal, prepneme ako pri obrázku
+                timer = setInterval(() => advance(1), AUTOPLAY_MS);
+              });
+            } else {
+              currentVideo.onended = () => advance(1);
+              try { currentVideo.play(); } catch {}
+            }
+          }
+        } else {
+          // obrázok – klasický interval
+          if (playing) timer = setInterval(() => advance(1), AUTOPLAY_MS);
+        }
+      }
+
+      function advance(step) {
+        // priprav obsah v B podľa smeru
+        const targetIndex = mod(cur + step, GALLERY_IMAGES.length);
+        elB = setPaneContent(paneB, GALLERY_IMAGES[targetIndex]);
+
+        // animácia posunu (vľavo alebo vpravo)
+        track.style.transition = `transform ${SWIPE_MS}ms ${EASING}`;
+        requestAnimationFrame(() => {
+          track.style.transform = step > 0 ? "translateX(-50%)" : "translateX(50%)";
         });
+      }
+
+      // Po dokončení animácie: A <- B, doplň ďalší „next“ do B a reset transform
+      track.addEventListener("transitionend", () => {
+        // A dostane obsah B (teraz viditeľný)
+        paneA.innerHTML = "";
+        paneA.appendChild(paneB.firstElementChild); // presuň uzol
+
+        // zisti smer
+        const wentLeft = track.style.transform.includes("-50%");
+        cur = wentLeft ? mod(cur + 1, GALLERY_IMAGES.length) : mod(cur - 1, GALLERY_IMAGES.length);
+        next = mod(cur + 1, GALLERY_IMAGES.length);
+
+        // B doplň budúcim médiom
+        elB = setPaneContent(paneB, GALLERY_IMAGES[next]);
+
+        // reset
+        track.style.transition = "none";
+        track.style.transform = "translateX(0)";
+        void track.offsetWidth; // reflow
+
+        // a naplánuj ďalší krok podľa typu (video/obrázok)
+        if (playing) scheduleNextForCurrent();
+      });
+
+      function schedule() {
+        if (playing) scheduleNextForCurrent();
+        else clearTimers();
+      }
+
+      // Pause/Resume pri hovere a pri (ne)viditeľnosti
+      slot.addEventListener("mouseenter", () => { playing = false; schedule(); });
+      slot.addEventListener("mouseleave", () => { playing = true;  schedule(); });
+
+      const io = new IntersectionObserver(
+        entries => {
+          entries.forEach(e => { playing = e.isIntersecting; schedule(); });
+        }, { threshold: 0.25 }
+      );
+      io.observe(slot);
+
+      // Dotyk / myš – manuálny swipe
+      let startX = 0, deltaX = 0, dragging = false;
+
+      function onStart(x) {
+        dragging = true;
+        deltaX = 0;
+        startX = x;
+        clearTimers();
+        if (currentVideo) currentVideo.pause();
+        track.style.transition = "none";
+      }
+      function onMove(x) {
+        if (!dragging) return;
+        deltaX = x - startX;
+        track.style.transform = `translateX(${deltaX / 2}px)`;
+      }
+      function onEnd() {
+        if (!dragging) return;
+        dragging = false;
+
+        const width = slot.clientWidth;
+        track.style.transition = `transform ${SWIPE_MS}ms ${EASING}`;
+
+        if (deltaX < -width * 0.15) {
+          advance(1);
+        } else if (deltaX > width * 0.15) {
+          // spätný krok: priprav B na „predošlý“
+          const prevIndex = mod(cur - 1, GALLERY_IMAGES.length);
+          elB = setPaneContent(paneB, GALLERY_IMAGES[prevIndex]);
+          requestAnimationFrame(() => {
+            track.style.transform = "translateX(50%)";
+          });
+        } else {
+          // vrátiť späť
+          track.style.transform = "translateX(0)";
+          if (playing) scheduleNextForCurrent();
+        }
+      }
+
+      // Myš
+      slot.addEventListener("mousedown", e => onStart(e.clientX));
+      window.addEventListener("mousemove", e => onMove(e.clientX));
+      window.addEventListener("mouseup", onEnd);
+
+      // Dotyk
+      slot.addEventListener("touchstart", e => onStart(e.touches[0].clientX), { passive: true });
+      slot.addEventListener("touchmove",  e => onMove(e.touches[0].clientX),  { passive: true });
+      slot.addEventListener("touchend", onEnd);
+
+      // štart
+      scheduleNextForCurrent();
+    }
+
+    // Inicializácia všetkých slotov
+    window.addEventListener("DOMContentLoaded", () => {
+      if (!GALLERY_IMAGES.length) return;
+      const slots = document.querySelectorAll(".swipe-slot");
+      slots.forEach((slot, i) => {
+        const offset = parseInt(slot.dataset.offset || "0", 10);
+        setupSlot(slot, i + offset); // rôzny štart pre 3 sloty
+      });
     });
-    </script>
-    <!-- ===== /Swipe logic ===== -->
+  </script>
+  <!-- ===== /Swipe logic ===== -->
 </body>
 </html>
