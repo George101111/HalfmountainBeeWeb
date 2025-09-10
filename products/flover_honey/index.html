@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kvetový med · Halfmountain</title>
 
-  <!-- Favicon + Logo font -->
+  <!-- Favicon + Fonts -->
   <link rel="icon" type="image/png" href="../../assets/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap&subset=latin-ext&v=2" rel="stylesheet">
+  <!-- OPRAVA: Inter + Oswald (400,700) s latin-ext -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;700&display=swap&subset=latin-ext" rel="stylesheet">
 
   <style>
     /* ================ GLOBAL ================ */
@@ -38,6 +39,7 @@
       pointer-events:none;
     }
     a{color:inherit}
+    /* Nadpisy a navigácia Oswald – máme 400 aj 700, takže bez fallbacku */
     h1, h2, .logo, nav a { font-family: 'Oswald', Arial, sans-serif; }
 
     /* ================ NAVBAR ================ */
